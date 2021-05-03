@@ -28,7 +28,7 @@ namespace Library_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+            
             String nam = name.Text;
 
             String idd = iddd.Text;
@@ -42,16 +42,16 @@ namespace Library_Management_System
                     
                    
                     
-                        SqlCommand cmd = new SqlCommand("select * from login where loginid=@loginid or password=@pass", con);
+                        SqlCommand cmd = new SqlCommand("select * from login where pincode=@loginid or password=@pass", con);
                         cmd.Parameters.AddWithValue("@loginid",iddd.Text);
                     cmd.Parameters.AddWithValue("@pass", name.Text);
 
                     SqlDataReader da = cmd.ExecuteReader();
                     while (da.Read())
                     {
-                        String id = da.GetValue(0).ToString();
-                        String idname = da.GetValue(1).ToString();
-                        String pass = da.GetValue(2).ToString();
+                        String id = da.GetValue(1).ToString();
+                        String idname = da.GetValue(2).ToString();
+                        String pass = da.GetValue(3).ToString();
                         //String user = ;
                         if (comboBox1.SelectedIndex > -1)
                         {
@@ -77,7 +77,7 @@ namespace Library_Management_System
                                     int i = pass.CompareTo(name.Text);
                                     if ( i == 0)
                                     {
-                                        MessageBox.Show("Your login id is " + id);
+                                        MessageBox.Show("Your pincode id is " + id);
                                         MessageBox.Show("Your Username is " + idname);
                                         MessageBox.Show("Sucessfully Recovered your username :)");
                                     }
@@ -120,14 +120,26 @@ namespace Library_Management_System
             SqlDataReader da = cmd.ExecuteReader();
             while (da.Read())
             {
-                h.Text = da.GetValue(0).ToString();
-                hh.Text = da.GetValue(1).ToString();
-                hhh.Text = da.GetValue(2).ToString();
+                h.Text = da.GetValue(1).ToString();
+                hh.Text = da.GetValue(2).ToString();
+                hhh.Text = da.GetValue(3).ToString();
 
             }
             this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
 
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+            {
+                iddd.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                iddd.UseSystemPasswordChar = true;
+            }
         }
     }
 }

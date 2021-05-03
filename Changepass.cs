@@ -32,76 +32,82 @@ namespace Library_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String na = username.Text;
-            String pa = oldpass.Text;
-            String newpa= newpass.Text;
-            String confirm = confirmpass.Text;
-            String newuse = newuser.Text;
+            try
+            {
+                String na = username.Text;
+                String pa = oldpass.Text;
+                String newpa = newpass.Text;
+                String confirm = confirmpass.Text;
+                String newuse = newuser.Text;
 
-            if (na != "" && pa != "" && newpa!="" && confirm!="" && newuse=="")
-            {
-                if (newpa==confirm) {
-                    SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
-                    SqlDataAdapter adap = new SqlDataAdapter("select * from login where Username='" + username.Text.Trim() + "' and password='" + oldpass.Text.Trim() + "'", con);
-                    DataTable dtbl = new DataTable();
-                    adap.Fill(dtbl);
-                    if (dtbl.Rows.Count == 1)
+                if (na != "" && pa != "" && newpa != "" && confirm != "" && newuse == "")
+                {
+                    if (newpa == confirm)
                     {
-                        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
-                        conn.Open();
-                        SqlCommand cmdd = conn.CreateCommand();
-                        cmdd.CommandType = CommandType.Text;
-                        cmdd = new SqlCommand("update login set password='"+confirmpass.Text+"'",conn);
-                        cmdd.ExecuteNonQuery();
-                        conn.Close();
-                        MessageBox.Show("Password changed sucessfully");
+                        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
+                        SqlDataAdapter adap = new SqlDataAdapter("select * from login where username='" + username.Text.Trim() + "' and password='" + oldpass.Text.Trim() + "'", con);
+                        DataTable dtbl = new DataTable();
+                        adap.Fill(dtbl);
+                        if (dtbl.Rows.Count == 1)
+                        {
+                            SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
+                            conn.Open();
+                            SqlCommand cmdd = conn.CreateCommand();
+                            cmdd.CommandType = CommandType.Text;
+                            cmdd = new SqlCommand("update login set password='" + confirmpass.Text + "'", conn);
+                            cmdd.ExecuteNonQuery();
+                            conn.Close();
+                            MessageBox.Show("Password changed sucessfully");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid username or password");
+                        }
+                        con.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Invalid username or password");
+                        MessageBox.Show("Password Mismatch");
                     }
-                    con.Close();
                 }
-                else
+                else if (na != "" && pa != "" && newpa != "" && confirm != "" && newuse != "" && pincode.Text!="")
                 {
-                    MessageBox.Show("Password Mismatch");
-                }
-            }
-            else if (na != "" && pa != "" && newpa != "" && confirm != "" && newuse !="" )
-            {
-                if (newpa == confirm)
-                {
-                    SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
-                    SqlDataAdapter adap = new SqlDataAdapter("select * from login where Username='" + username.Text.Trim() + "' and password='" + oldpass.Text.Trim() + "'", con);
-                    DataTable dtbl = new DataTable();
-                    adap.Fill(dtbl);
-                    if (dtbl.Rows.Count == 1)
+                    if (newpa == confirm)
                     {
-                        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
-                        conn.Open();
-                        SqlCommand cmdd = conn.CreateCommand();
-                        cmdd.CommandType = CommandType.Text;
-                        cmdd = new SqlCommand("update login set Username ='"+newuser.Text+"' ,password='" + confirmpass.Text + "'", conn);
-                        cmdd.ExecuteNonQuery();
-                        conn.Close();
-                        MessageBox.Show("Username and Password changed sucessfully");
+                        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
+                        SqlDataAdapter adap = new SqlDataAdapter("select * from login where username='" + username.Text.Trim() + "' and password='" + oldpass.Text.Trim() + "'", con);
+                        DataTable dtbl = new DataTable();
+                        adap.Fill(dtbl);
+                        if (dtbl.Rows.Count == 1)
+                        {
+                            SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
+                            conn.Open();
+                            SqlCommand cmdd = conn.CreateCommand();
+                            cmdd.CommandType = CommandType.Text;
+                            cmdd = new SqlCommand("update login set username ='" + newuser.Text + "' ,password='" + confirmpass.Text + "',pincode='"+pincode.Text+"'", conn);
+                            cmdd.ExecuteNonQuery();
+                            conn.Close();
+                            MessageBox.Show("Username and Password and pincode changed sucessfully");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid username or password");
+                        }
+                        con.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Invalid username or password");
+                        MessageBox.Show("Password Mismatch");
                     }
-                    con.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Password Mismatch");
+                    MessageBox.Show("Please Fill the empty Area");
                 }
-            }
-            else
+            }catch(InvalidOperationException)
             {
-                MessageBox.Show("Please Fill the empty Area");
+                MessageBox.Show("Error");
             }
-        
     }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -149,14 +155,27 @@ namespace Library_Management_System
             SqlDataReader da = cmd.ExecuteReader();
             while (da.Read())
             {
-                h.Text = da.GetValue(0).ToString();
-                hh.Text = da.GetValue(1).ToString();
-                hhh.Text = da.GetValue(2).ToString();
+                h.Text = da.GetValue(1).ToString();
+                hh.Text = da.GetValue(2).ToString();
+                hhh.Text = da.GetValue(3).ToString();
 
             }
             con.Close();
             this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+            {
+                pincode.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                pincode.UseSystemPasswordChar = true;
+            }
+
         }
     }
 }

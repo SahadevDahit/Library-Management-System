@@ -55,6 +55,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -256,6 +257,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.checkBox4);
             this.panel4.Controls.Add(this.comboBox1);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.label4);
@@ -275,7 +277,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Username",
             "Password"});
-            this.comboBox1.Location = new System.Drawing.Point(20, 128);
+            this.comboBox1.Location = new System.Drawing.Point(3, 128);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(106, 28);
             this.comboBox1.TabIndex = 13;
@@ -287,9 +289,9 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(16, 92);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 20);
+            this.label6.Size = new System.Drawing.Size(73, 20);
             this.label6.TabIndex = 12;
-            this.label6.Text = "LoginID";
+            this.label6.Text = "Pincode";
             // 
             // label4
             // 
@@ -309,9 +311,9 @@
             this.name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.name.Location = new System.Drawing.Point(145, 134);
+            this.name.Location = new System.Drawing.Point(129, 134);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(226, 22);
+            this.name.Size = new System.Drawing.Size(219, 22);
             this.name.TabIndex = 3;
             // 
             // iddd
@@ -319,10 +321,11 @@
             this.iddd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.iddd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iddd.Location = new System.Drawing.Point(145, 90);
+            this.iddd.Location = new System.Drawing.Point(129, 85);
             this.iddd.Name = "iddd";
             this.iddd.Size = new System.Drawing.Size(219, 22);
             this.iddd.TabIndex = 2;
+            this.iddd.UseSystemPasswordChar = true;
             // 
             // panel5
             // 
@@ -408,6 +411,18 @@
             this.pictureBox4.TabIndex = 0;
             this.pictureBox4.TabStop = false;
             // 
+            // checkBox4
+            // 
+            this.checkBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(352, 90);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(51, 17);
+            this.checkBox4.TabIndex = 25;
+            this.checkBox4.Text = "show";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            // 
             // Forgotpass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -467,5 +482,6 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }

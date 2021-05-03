@@ -17,15 +17,17 @@ namespace Library_Management_System
 
         public Home()
         {
+            Forgotpass f = new Forgotpass();
+            
             InitializeComponent();
             con.Open();
             SqlCommand cmd = new SqlCommand("select * from Institue ", con);
               SqlDataReader da = cmd.ExecuteReader();
             while (da.Read())
             {
-                h.Text = da.GetValue(0).ToString();
-                hh.Text= da.GetValue(1).ToString();
-                hhh.Text= da.GetValue(2).ToString();
+                h.Text = da.GetValue(1).ToString();
+                hh.Text= da.GetValue(2).ToString();
+                hhh.Text= da.GetValue(3).ToString();
 
             }
             con.Close();
@@ -75,6 +77,13 @@ namespace Library_Management_System
         {
             this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Teacher t = new Teacher();
+            t.Show();
+            this.Hide();
         }
     }
 }

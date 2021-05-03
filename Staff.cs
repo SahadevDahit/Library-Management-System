@@ -22,12 +22,13 @@ namespace Library_Management_System
         {
             InitializeComponent();
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
-
+            lastvalue();
             display();
+            pictureBox4.Image = Properties.Resources.sd;
         }
         public void display()
         {
-
+            lastvalue();
             if (con.State == ConnectionState.Closed)
                 con.Open();
             int i = 0;
@@ -54,7 +55,7 @@ namespace Library_Management_System
             contact.Text = "";
             dob.Text = "";
             email.Text = "";
-            pictureBox4.Image = null;
+            pictureBox4.Image = Properties.Resources.sd;
         }
         private void btnBrowser_Click(object sender, EventArgs e)
         {
@@ -84,7 +85,7 @@ namespace Library_Management_System
                 }
                 else
                 {
-                    Image img = pictureBox1.Image;
+                    Image img = pictureBox4.Image;
 
                     byte[] arr;
                     ImageConverter converter = new ImageConverter();
@@ -102,8 +103,10 @@ namespace Library_Management_System
                     cmd.Parameters.AddWithValue("@img", arr);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Record inserted sucessfully");
-                    display();
+                    con.Close();
+                   display();
                     refresh();
+                    lastvalue();
 
 
 
@@ -137,6 +140,7 @@ namespace Library_Management_System
                 MessageBox.Show("Record deleted Sucessfully");
                 refresh();
                 display();
+                lastvalue();
             }
             catch (IOException)
             {
@@ -146,55 +150,71 @@ namespace Library_Management_System
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.Rows[e.RowIndex].Cells[1].Value == null)
+            try
             {
-                refresh();
-            }
-            else
-            {
-                enroll.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-                name.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                faculty.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-                sem.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-                roll.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
-                contact.Text = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
-                dob.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
-                email.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
-                if (dataGridView1.Rows[e.RowIndex].Cells[9].Value == null)
+                if (dataGridView1.Rows[e.RowIndex].Cells[1].Value == null)
                 {
-                    pictureBox4.Image = null;
+                    refresh();
                 }
                 else
                 {
-                    byte[] imgdata = (byte[])dataGridView1.CurrentRow.Cells[9].Value;
-                    MemoryStream ms = new MemoryStream(imgdata);
-                    pictureBox4.Image = Image.FromStream(ms);
+                    try
+                    {
+
+                        enroll.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                        name.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                        faculty.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                        sem.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                        roll.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                        contact.Text = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+                        dob.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+                        email.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
+                        if (dataGridView1.Rows[e.RowIndex].Cells[9].Value == null)
+                        {
+                            pictureBox4.Image = null;
+                        }
+                        else
+                        {
+                            byte[] imgdata = (byte[])dataGridView1.CurrentRow.Cells[9].Value;
+                            MemoryStream ms = new MemoryStream(imgdata);
+                            pictureBox4.Image = Image.FromStream(ms);
+                        }
+                    }catch(ArgumentOutOfRangeException)
+                    {
+                        MessageBox.Show("Please select proper cell");
+                    }
                 }
+            }catch(ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Error");
             }
         }
+        public void updatestaff()
+        {
+            Image img = pictureBox4.Image;
 
+            byte[] arr;
+            ImageConverter converter = new ImageConverter();
+            arr = (byte[])converter.ConvertTo(img, typeof(byte[]));
+            con.Open();
+            SqlCommand cmd = new SqlCommand("update  Staff set Staff_ID=@id ,  Name=@name,Address=@fac, Shift=@sem, Post=@roll,Contact=@cont,Teach_time=@dob,Email=@em , Picture=@img where Staff_ID='" + enroll.Text + "'", con);
+            cmd.Parameters.AddWithValue("@id", enroll.Text);
+            cmd.Parameters.AddWithValue("@name", name.Text);
+            cmd.Parameters.AddWithValue("@fac", faculty.Text);
+            cmd.Parameters.AddWithValue("@sem", sem.Text);
+            cmd.Parameters.AddWithValue("@roll", roll.Text);
+            cmd.Parameters.AddWithValue("@cont", contact.Text);
+            cmd.Parameters.AddWithValue("@dob", dob.Text);
+            cmd.Parameters.AddWithValue("@em", email.Text);
+            cmd.Parameters.AddWithValue("@img", arr);
+            cmd.ExecuteNonQuery();
+        }
         private void update_Click(object sender, EventArgs e)
         {
 
             try
             {
-                Image img = pictureBox4.Image;
-
-                byte[] arr;
-                ImageConverter converter = new ImageConverter();
-                arr = (byte[])converter.ConvertTo(img, typeof(byte[]));
-                con.Open();
-                SqlCommand cmd = new SqlCommand("update  Staff set Staff_ID=@id ,  Name=@name,Address=@fac, Shift=@sem, Post=@roll,Contact=@cont,Teach_time=@dob,Email=@em , Picture=@img where Staff_ID='" + enroll.Text + "'", con);
-                cmd.Parameters.AddWithValue("@id", enroll.Text);
-                cmd.Parameters.AddWithValue("@name", name.Text);
-                cmd.Parameters.AddWithValue("@fac", faculty.Text);
-                cmd.Parameters.AddWithValue("@sem", sem.Text);
-                cmd.Parameters.AddWithValue("@roll", roll.Text);
-                cmd.Parameters.AddWithValue("@cont", contact.Text);
-                cmd.Parameters.AddWithValue("@dob", dob.Text);
-                cmd.Parameters.AddWithValue("@em", email.Text);
-                cmd.Parameters.AddWithValue("@img", arr);
-                cmd.ExecuteNonQuery();
+                updatestaff();
                 MessageBox.Show("Record updated sucessfully");
                 refresh();
                 con.Close();
@@ -219,9 +239,9 @@ namespace Library_Management_System
             SqlDataReader da = cmd.ExecuteReader();
             while (da.Read())
             {
-                h.Text = da.GetValue(0).ToString();
-                hh.Text = da.GetValue(1).ToString();
-                hhh.Text = da.GetValue(2).ToString();
+                h.Text = da.GetValue(1).ToString();
+                hh.Text = da.GetValue(2).ToString();
+                hhh.Text = da.GetValue(3).ToString();
 
             }
             con.Close();
@@ -255,7 +275,7 @@ namespace Library_Management_System
                 }
                 else if (comboBox1.SelectedIndex == 3)
                 {
-                    cmd = new SqlCommand("select * from Student where Post like ('%" + textBox1.Text + "%')", con);
+                    cmd = new SqlCommand("select * from Staff where Post like ('%" + textBox1.Text + "%')", con);
 
                 }
                 else
@@ -280,10 +300,24 @@ namespace Library_Management_System
             }
 
         }
+        public void lastvalue()
+        {
 
+            int c = dataGridView1.RowCount - 1;
+            label11.Text = c.ToString();
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             refresh();
+        }
+
+        private void enroll_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("This field should contain digits");
+            }
         }
     }
 }

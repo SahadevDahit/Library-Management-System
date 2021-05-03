@@ -61,6 +61,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -199,6 +200,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.checkBox3);
             this.panel4.Controls.Add(this.phno);
             this.panel4.Controls.Add(this.addres);
             this.panel4.Controls.Add(this.institute);
@@ -286,10 +288,12 @@
             this.log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.log.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.log.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.log.Location = new System.Drawing.Point(154, 51);
             this.log.Name = "log";
             this.log.Size = new System.Drawing.Size(249, 22);
             this.log.TabIndex = 19;
+            this.log.UseSystemPasswordChar = true;
             // 
             // label6
             // 
@@ -297,9 +301,9 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(30, 51);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 20);
+            this.label6.Size = new System.Drawing.Size(78, 20);
             this.label6.TabIndex = 18;
-            this.label6.Text = "Login ID";
+            this.label6.Text = "Pin code";
             // 
             // checkBox2
             // 
@@ -459,6 +463,18 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
+            // checkBox3
+            // 
+            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(409, 51);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(51, 17);
+            this.checkBox3.TabIndex = 26;
+            this.checkBox3.Text = "show";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
             // DefaultChange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,7 +482,7 @@
             this.ClientSize = new System.Drawing.Size(822, 521);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "DefaultChange";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DefaultChange";
             this.Load += new System.EventHandler(this.DefaultChange_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -521,5 +537,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

@@ -48,12 +48,12 @@ namespace Library_Management_System
         {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
 
-            String na = username.Text;
-            String pa = password.Text;
+            String na = textBox1.Text;
+            String pa = textBox2.Text;
             if (na != "" && pa != "")
             {
                 con.Open();
-                SqlDataAdapter adap = new SqlDataAdapter("select * from login where Username='" + username.Text.Trim() + "' and password='" + password.Text.Trim() + "'", con);
+                SqlDataAdapter adap = new SqlDataAdapter("select * from login where username='" + textBox1.Text.Trim() + "' and password='" + textBox2.Text.Trim() + "'", con);
                 DataTable dtbl = new DataTable();
                 adap.Fill(dtbl);
                 if (dtbl.Rows.Count >0)
@@ -63,7 +63,7 @@ namespace Library_Management_System
                     SqlDataReader da = cmd.ExecuteReader();
                     while (da.Read())
                     {
-                        String id = da.GetValue(0).ToString();
+                        String id = da.GetValue(1).ToString();
                         
 
                         if (id == "2")
@@ -73,7 +73,7 @@ namespace Library_Management_System
                             conn.Open();
                             SqlCommand cmdd = conn.CreateCommand();
                             cmdd.CommandType = CommandType.Text;
-                             cmdd = new SqlCommand("update login set loginid=5", conn);
+                             cmdd = new SqlCommand("update login set pincode=5", conn);
                             cmdd.ExecuteNonQuery();
                             conn.Close();
                             DefaultChange d = new DefaultChange();
@@ -110,11 +110,11 @@ namespace Library_Management_System
         {
             if (checkBox1.Checked)
             {
-                password.UseSystemPasswordChar = false;
+                textBox2.UseSystemPasswordChar = false;
             }
             else
             {
-                password.UseSystemPasswordChar = true;
+                textBox2.UseSystemPasswordChar = true;
             }
 
 

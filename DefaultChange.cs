@@ -23,60 +23,66 @@ namespace Library_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String user = username.Text;
-            String pa = pass.Text;
-            String confirm = confirmpass.Text;
-            if ((log.Text).Length > 3)
+            try
             {
-
-
-                if (user != "" && pa != "" && confirm != "" && institute.Text!="")
+                String user = username.Text;
+                String pa = pass.Text;
+                String confirm = confirmpass.Text;
+                if ((log.Text).Length > 3)
                 {
-                    
 
-                    if (pa == confirm)
+
+                    if (user != "" && pa != "" && confirm != "" && institute.Text != "")
                     {
-                        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
 
-                        con.Open();
-                        SqlCommand cmdd = con.CreateCommand();
-                        cmdd.CommandType = CommandType.Text;
-                        cmdd = new SqlCommand("update login set loginid=@id, Username=@name,password=@pass", con);
-                        cmdd.Parameters.AddWithValue("@id", log.Text);
-                        cmdd.Parameters.AddWithValue("@name", username.Text);
-                        cmdd.Parameters.AddWithValue("@pass", pass.Text);
-                        cmdd.ExecuteNonQuery();
-                        con.Close();
 
-                       con.Open();
-                        SqlCommand  cm = new SqlCommand("insert into Institue(inst,Address,phone) values(@name,@state,@ph)", con);
-                        cm.Parameters.AddWithValue("@name", institute.Text);
-                        cm.Parameters.AddWithValue("@state", addres.Text);
-                        cm.Parameters.AddWithValue("@ph", phno.Text);
-                        cm.ExecuteNonQuery();
-                        con.Close();
+                        if (pa == confirm)
+                        {
+                            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
 
-                      
-                        Form1 ff = new Form1();
-                        ff.Show();
-                        this.Close();
-                        MessageBox.Show("You have changed your default username and password sucessfully");
+                            con.Open();
+                            SqlCommand cmdd = con.CreateCommand();
+                            cmdd.CommandType = CommandType.Text;
+                            cmdd = new SqlCommand("update login set pincode=@id, username=@name,password=@pass", con);
+                            cmdd.Parameters.AddWithValue("@id", log.Text);
+                            cmdd.Parameters.AddWithValue("@name", username.Text);
+                            cmdd.Parameters.AddWithValue("@pass", pass.Text);
+                            cmdd.ExecuteNonQuery();
+                            con.Close();
+
+                            con.Open();
+                            SqlCommand cm = new SqlCommand("insert into Institue(inst,Address,phone) values(@name,@state,@ph)", con);
+                            cm.Parameters.AddWithValue("@name", institute.Text);
+                            cm.Parameters.AddWithValue("@state", addres.Text);
+                            cm.Parameters.AddWithValue("@ph", phno.Text);
+                            cm.ExecuteNonQuery();
+                            con.Close();
+
+
+                            Form1 ff = new Form1();
+                            ff.Show();
+                            this.Close();
+                            MessageBox.Show("You have changed your default username and password sucessfully");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Password Mismatched");
+                        }
+
                     }
                     else
                     {
-                        MessageBox.Show("Password Mismatched");
+                        MessageBox.Show("Enter the value of username password and Institute name");
                     }
-
                 }
+
                 else
                 {
-                    MessageBox.Show("Enter the value of username password and Institute name");
+                    MessageBox.Show("Too week login id. It's length must be greater than 3");
                 }
-            }
-
-            else
+            }catch(InvalidOperationException)
             {
-                MessageBox.Show("Too week login id. It's length must be greater than 3");
+                MessageBox.Show("Error");
             }
         }
 
@@ -93,7 +99,7 @@ namespace Library_Management_System
                 SqlCommand cmdd = conn.CreateCommand();
                 cmdd.CommandType = CommandType.Text;
             
-                cmdd = new SqlCommand("update login set loginid=2", conn); ;
+                cmdd = new SqlCommand("update login set pincode=2", conn); ;
                 cmdd.ExecuteNonQuery();
                 conn.Close();
                 Form1 ff = new Form1();
@@ -141,6 +147,18 @@ namespace Library_Management_System
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+            {
+                log.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                log.UseSystemPasswordChar = true;
+            }
         }
     }
 }

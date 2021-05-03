@@ -21,6 +21,9 @@ namespace Library_Management_System
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db\lb.mdf;Integrated Security=True;Connect Timeout=30");
 
             display();
+            lastvalue();
+            combdisplay();
+            limitdisplay();
         }
         public void display()
         {
@@ -33,13 +36,19 @@ namespace Library_Management_System
             while (dr.Read())
             {
                 i = i + 1;
-                dataGridView1.Rows.Add(i.ToString(), dr["bookid"].ToString(), dr["bookname"].ToString(), dr["category"].ToString(), dr["semester"].ToString(), dr["price"].ToString(), dr["quantity"].ToString(),
-                dr["status"].ToString(), dr["author"].ToString(), dr["edition"].ToString());
+                dataGridView1.Rows.Add(i.ToString(), dr["bookid"].ToString(), dr["bookname"].ToString(), dr["faculty"].ToString(), dr["semester"].ToString(), dr["price"].ToString(), dr["quantity"].ToString(),
+                dr["status"].ToString(), dr["rackno"].ToString(), dr["edition"].ToString());
             }
             dr.Close();
             con.Close();
 
 
+        }
+
+        public void lastvalue()
+        {
+            int c = dataGridView1.RowCount;
+            label12.Text =c.ToString();
         }
         private void label1_Click(object sender, EventArgs e)
         {
@@ -59,7 +68,7 @@ namespace Library_Management_System
             catego.Text = "";
             semes.Text = "";
             pric.Text = "";
-            quantity.Text = "";
+            quantity.Text = "0";
             stats.Text = "";
             auth.Text = "";
             editon.Text = "";
@@ -78,7 +87,7 @@ namespace Library_Management_System
                 try
                 {
 
-                    SqlDataAdapter adap = new SqlDataAdapter("select * from Book_Records where bookid='" + bid.Text + "'", con);
+                    SqlDataAdapter adap = new SqlDataAdapter("select * from Book_Records where bookid='" + bid.Text + "' or bookname='" + nam.Text + "'", con);
                     DataTable dt = new DataTable();
                     adap.Fill(dt);
                     if (dt.Rows.Count > 0)
@@ -98,6 +107,7 @@ namespace Library_Management_System
                         MessageBox.Show("Record Inserted Sucessfully");
                         display();
                         refresh();
+                        lastvalue();
 
 
 
@@ -117,25 +127,30 @@ namespace Library_Management_System
 
         private void update_Click(object sender, EventArgs e)
         {
-
-            if (bid.Text != "" && nam.Text != "" && catego.Text != "" && quantity.Text != "")
+            try
             {
-               
-                       con.Open();
+                if (bid.Text != "" && nam.Text != "" && catego.Text != "" && quantity.Text != "")
+                {
 
-                        cmd = con.CreateCommand();
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "update Book_Records set bookid='" + bid.Text + "',bookname='" + nam.Text + "',category='" + catego.Text + "',  semester='" + semes.Text + "', price = '" + pric.Text + "',quantity = '" + quantity.Text + "',status = '" + stats.Text + "',author = '" + auth.Text + "',edition = '" + editon.Text + "' where bookid='" + bid.Text + "' ";
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        MessageBox.Show("Record updated Sucessfully");
-                        display();
-                        refresh();
+                    con.Open();
 
-            }
-            else
+                    cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "update Book_Records set bookid='" + bid.Text + "',bookname='" + nam.Text + "',faculty='" + catego.Text + "',  semester='" + semes.Text + "', price = '" + pric.Text + "',quantity = '" + quantity.Text + "',status = '" + stats.Text + "',rackno = '" + auth.Text + "',edition = '" + editon.Text + "' where bookid='" + bid.Text + "' ";
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Record updated Sucessfully");
+                    display();
+                    refresh();
+
+                }
+                else
+                {
+                    MessageBox.Show("Acc no , Book name , faculty and quantity are compulsory filled");
+                }
+            }catch(InvalidOperationException)
             {
-                MessageBox.Show("Book id , Book name , Category and quantity are compulsory filled");
+                MessageBox.Show("Error");
             }
         }
 
@@ -150,27 +165,12 @@ namespace Library_Management_System
             MessageBox.Show("Record deleted Sucessfully");
             refresh();
             display();
+            lastvalue();
 
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.Rows[e.RowIndex].Cells[1].Value == null)
-            {
-                refresh();
-            }
-            else
-            {
-                bid.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-                nam.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                catego.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-                semes.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
-                pric.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
-                quantity.Text = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
-                stats.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
-                auth.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
-                editon.Text = dataGridView1.Rows[e.RowIndex].Cells[9].Value.ToString();
-            }
         }
 
         private void Books_Load(object sender, EventArgs e)
@@ -180,9 +180,9 @@ namespace Library_Management_System
             SqlDataReader da = cmd.ExecuteReader();
             while (da.Read())
             {
-                h.Text = da.GetValue(0).ToString();
-                hh.Text = da.GetValue(1).ToString();
-                hhh.Text = da.GetValue(2).ToString();
+                h.Text = da.GetValue(1).ToString();
+                hh.Text = da.GetValue(2).ToString();
+                hhh.Text = da.GetValue(3).ToString();
 
             }
             con.Close();
@@ -208,11 +208,11 @@ namespace Library_Management_System
             }
             else if (int.Parse(quantity.Text)>0)
             {
-                stats.Text = "active";
+                stats.Text = "available";
             }
             else if(int.Parse(quantity.Text) ==0)
             {
-                stats.Text = "inactive";
+                stats.Text = "unavailable";
             }
            
             else
@@ -241,12 +241,17 @@ namespace Library_Management_System
                 }
                 else if (comboBox1.SelectedIndex == 2)
                 {
-                    cmd = new SqlCommand("select * from Book_Records where category like ('%" + search.Text + "%')", con);
+                    cmd = new SqlCommand("select * from Book_Records where faculty like ('%" + search.Text + "%')", con);
 
                 }
                 else if (comboBox1.SelectedIndex == 3)
                 {
                     cmd = new SqlCommand("select * from Book_Records where semester like ('%" + search.Text + "%')", con);
+
+                }
+                else if (comboBox1.SelectedIndex == 4)
+                {
+                    cmd = new SqlCommand("select * from Book_Records where rackno like ('%" + search.Text + "%')", con);
 
                 }
                 else
@@ -258,8 +263,8 @@ namespace Library_Management_System
                 while (dr.Read())
                 {
                     i = i + 1;
-                    dataGridView1.Rows.Add(i.ToString(), dr["bookid"].ToString(), dr["bookname"].ToString(), dr["category"].ToString(), dr["semester"].ToString(), dr["price"].ToString(), dr["quantity"].ToString(),
-                    dr["status"].ToString(), dr["author"].ToString(), dr["edition"].ToString());
+                    dataGridView1.Rows.Add(i.ToString(), dr["bookid"].ToString(), dr["bookname"].ToString(), dr["faculty"].ToString(), dr["semester"].ToString(), dr["price"].ToString(), dr["quantity"].ToString(),
+                    dr["status"].ToString(), dr["rackno"].ToString(), dr["edition"].ToString());
                 }
                 dr.Close();
                 con.Close();
@@ -312,12 +317,228 @@ namespace Library_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            refresh();
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void bid_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void bid_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("This field should contain digits");
+            }
+        }
+
+        private void dataGridView1_SizeChanged(object sender, EventArgs e)
+        {
+            lastvalue();
+        }
+
+        private void dataGridView1_RowHeightChanged(object sender, DataGridViewRowEventArgs e)
+        {
+            lastvalue();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            refresh();
+        }
+
+        private void catego_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("This field should contain digits");
+            }
+        }
+
+        private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dataGridView1.Rows[e.RowIndex].Cells[1].Value == null)
+                {
+                    refresh();
+                }
+                else
+                {
+                    bid.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    nam.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    catego.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    semes.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    pric.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
+                    quantity.Text = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
+                    stats.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+                    auth.Text = dataGridView1.Rows[e.RowIndex].Cells[8].Value.ToString();
+                    editon.Text = dataGridView1.Rows[e.RowIndex].Cells[9].Value.ToString();
+                }
+            }catch(ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Please select proper cell");
+            }
+        }
+
+        private void auth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+                MessageBox.Show("This field should contain digits");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                SqlDataAdapter adap = new SqlDataAdapter("select * from faculty where facultyname='" + faculty.Text + "'", con);
+                DataTable dt = new DataTable();
+                adap.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    MessageBox.Show("Data Already Exists");
+
+                }
+                else
+                {
+
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "insert into faculty values('" + faculty.Text + "')";
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Faculty added Sucessfully");
+                    combdisplay();
+
+
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error in Inserting data");
+            }
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "delete from faculty where facultyname='" + faculty.Text + "'";
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Faculty deleted Sucessfully");
+                combdisplay();
+
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Error");
+            }
+        }
+        public void limitdisplay()
+        {
+            try
+            {
+                
+                con.Open();
+                SqlCommand ccm = new SqlCommand("select * from booklimit ", con);
+                ccm.Parameters.AddWithValue("@id", faculty.Text);
+                SqlDataReader dd = ccm.ExecuteReader();
+
+                while (dd.Read())
+                {
+
+                    limit.Text = dd.GetValue(1).ToString(); 
+
+
+
+                }
+                dd.Close();
+                con.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Error");
+
+            }
+        }
+
+        public void combdisplay()
+        {
+         try   {
+                catego.Items.Clear();
+                con.Open();
+                SqlCommand ccm = new SqlCommand("select * from faculty ", con);
+                ccm.Parameters.AddWithValue("@id", faculty.Text);
+                SqlDataReader dd = ccm.ExecuteReader();
+                
+                               while (dd.Read())
+                {
+
+                    catego.Items.Add(dd.GetValue(1).ToString());
+                   
+
+
+                }
+                dd.Close();
+                con.Close();
+            }
+            catch (InvalidOperationException)
+            {
+                catego.Items.Clear();
+                
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (limit.Text != "")
+                {
+
+                    con.Open();
+
+                    cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "update booklimit set limit='" + limit.Text + "'";
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Book limit adjusted Sucessfully");
+                    limitdisplay();
+
+                }
+                else
+                {
+                    MessageBox.Show("Unable to adjust");
+                        }
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

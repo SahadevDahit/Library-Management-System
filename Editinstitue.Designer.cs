@@ -287,7 +287,7 @@
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
             this.pictureBox4.Location = new System.Drawing.Point(3, 3);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(115, 94);
+            this.pictureBox4.Size = new System.Drawing.Size(116, 94);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox4.TabIndex = 3;
             this.pictureBox4.TabStop = false;
@@ -298,11 +298,11 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.Controls.Add(this.pictureBox4, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(475, 3);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(474, 3);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(121, 100);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(122, 100);
             this.tableLayoutPanel7.TabIndex = 3;
             // 
             // label1
@@ -313,7 +313,7 @@
             this.label1.ForeColor = System.Drawing.Color.DarkRed;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(340, 100);
+            this.label1.Size = new System.Drawing.Size(339, 100);
             this.label1.TabIndex = 0;
             this.label1.Text = "Library Management System";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -328,7 +328,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.36364F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(346, 100);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(345, 100);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // pictureBox3
@@ -348,7 +348,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(123, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(346, 100);
+            this.panel2.Size = new System.Drawing.Size(345, 100);
             this.panel2.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -356,7 +356,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.4321F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.5679F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
             this.tableLayoutPanel2.Controls.Add(this.pictureBox3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel7, 2, 0);
@@ -400,7 +400,7 @@
             this.ClientSize = new System.Drawing.Size(605, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Editinstitue";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editinstitue";
             this.Load += new System.EventHandler(this.Editinstitue_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
