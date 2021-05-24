@@ -405,36 +405,42 @@ namespace Library_Management_System
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
+            if (faculty.Text != "")
             {
-
-                SqlDataAdapter adap = new SqlDataAdapter("select * from faculty where facultyname='" + faculty.Text + "'", con);
-                DataTable dt = new DataTable();
-                adap.Fill(dt);
-                if (dt.Rows.Count > 0)
-                {
-                    MessageBox.Show("Data Already Exists");
-
-                }
-                else
+                try
                 {
 
-                    con.Open();
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "insert into faculty values('" + faculty.Text + "')";
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Faculty added Sucessfully");
-                    combdisplay();
+                    SqlDataAdapter adap = new SqlDataAdapter("select * from faculty where facultyname='" + faculty.Text + "'", con);
+                    DataTable dt = new DataTable();
+                    adap.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Data Already Exists");
+
+                    }
+                    else
+                    {
+
+                        con.Open();
+                        SqlCommand cmd = con.CreateCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = "insert into faculty values('" + faculty.Text + "')";
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                        MessageBox.Show("Faculty added Sucessfully");
+                        combdisplay();
 
 
 
+                    }
                 }
-            }
-            catch
+                catch
+                {
+                    MessageBox.Show("Error in Inserting data");
+                }
+            }else
             {
-                MessageBox.Show("Error in Inserting data");
+                MessageBox.Show("Enter the faculty Name");
             }
         }
 

@@ -700,7 +700,7 @@ namespace Library_Management_System
         {
             int count = 0;
            
-            string ss = h.Text+ "\n" + hh.Text + "\n" + hhh.Text + "\n ID: " + textBox1.Text + "\n" + textBox2.Text;
+            string ss ="https://github.com/SahadevDahit/Library-Management-System";
             Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
             p.pictureBox1.Image = qrcode.Draw(ss, 100);
 
