@@ -15,6 +15,19 @@ namespace Library_Management_System
         {
             InitializeComponent();
             display();
+            dataGridView1.Columns[1].HeaderText = "Enroll_No";
+            dataGridView1.Columns[2].HeaderText = "Name";
+            dataGridView1.Columns[3].HeaderText = "Faculty";
+            dataGridView1.Columns[4].HeaderText = "Semester";
+            comboBox1.Items.Clear();
+            comboBox1.Items.Add("Enrollment NO");
+            comboBox1.Items.Add(" Name");
+            comboBox1.Items.Add("Faculty");
+            comboBox1.Items.Add("Semester");
+            comboBox1.Items.Add("Book ID");
+            comboBox1.Items.Add("Book Name");
+            label3.Text = "Enroll NO";
+            label5.Text = "Faculty";
         }
         public void display()
         {
@@ -76,7 +89,7 @@ namespace Library_Management_System
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            refreshh();
             if (comboBox2.SelectedIndex== 1)
             {
 

@@ -222,6 +222,7 @@ namespace Library_Management_System
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            refreshh();
             if (comboBox2.SelectedIndex == 1)
             {
                
