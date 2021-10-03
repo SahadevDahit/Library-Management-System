@@ -699,9 +699,9 @@ namespace Library_Management_System
         private void button11_Click(object sender, EventArgs e)
         {
             int count = 0;
-           
-            string ss ="https://github.com/SahadevDahit/Library-Management-System";
-            Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
+
+            string ss = "https://github.com/SahadevDahit/Library-Management-System" + "\n\n https://sahadevdahit.github.io/Webpage/";
+                Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
             p.pictureBox1.Image = qrcode.Draw(ss, 100);
 
             if (comboBox1.SelectedIndex == -1 || comboBox1.SelectedIndex == 0)
