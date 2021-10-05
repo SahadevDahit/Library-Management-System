@@ -522,13 +522,17 @@ namespace Library_Management_System
 
         private void button8_Click(object sender, EventArgs e)
         {
+            DateTime ddd = dateTimePicker3.Value.Date;
             DateTime d1 = dateTimePicker4.Value.Date;
             DateTime d2 = dateTimePicker5.Value.Date;
             TimeSpan ts = d2 - d1;
+            TimeSpan ts1 = d2 - ddd;
+            int dd = ts1.Days;
+            
             int days = ts.Days;
             if (textBox15.Text != "")
             {
-                if (days > 0)
+                if (days >= 0 && dd>0)
                 {
                     int d = int.Parse(textBox15.Text);
                     days = days * d;
@@ -536,7 +540,8 @@ namespace Library_Management_System
                 }
                 else
                 {
-                    MessageBox.Show("Date of deposit cannot be earlier than Date to be return");
+                    // MessageBox.Show("Date of deposit cannot be earlier than Date to be return");
+                    textBox15.Text = null;
                 }
             }
             else
@@ -699,9 +704,10 @@ namespace Library_Management_System
         private void button11_Click(object sender, EventArgs e)
         {
             int count = 0;
+        
+            string ss = "https://github.com/SahadevDahit/Library-Management-System" + " \n\n\n https://sahadevdahit.github.io/Webpage/";
+            Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
 
-            string ss = "https://github.com/SahadevDahit/Library-Management-System" + "\n\n https://sahadevdahit.github.io/Webpage/";
-                Zen.Barcode.CodeQrBarcodeDraw qrcode = Zen.Barcode.BarcodeDrawFactory.CodeQr;
             p.pictureBox1.Image = qrcode.Draw(ss, 100);
 
             if (comboBox1.SelectedIndex == -1 || comboBox1.SelectedIndex == 0)

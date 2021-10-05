@@ -121,7 +121,7 @@ namespace Library_Management_System
             }
             else
             {
-                MessageBox.Show("Book id , Book name , Category and quantity are compulsory filled");
+                MessageBox.Show("Book id , Book name , Faculty and quantity are compulsory filled");
             }
         }
 

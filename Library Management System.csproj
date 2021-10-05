@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\dell\Desktop\sd\</PublishUrl>
+    <PublishUrl>C:\Users\dell\Desktop\deploy\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -57,10 +57,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>4A1839B224A0EE80AED002BD46F7FBD0141CF5E2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>A30E66D9F1FCA202262677854B4978F10212834F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Library Management System_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Library Management System_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -249,6 +249,8 @@
       <DependentUpon>Teacher.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App1.config" />
+    <None Include="Library Management System_2_TemporaryKey.pfx" />
+    <None Include="Library Management System_3_TemporaryKey.pfx" />
     <None Include="Library Management System_TemporaryKey.pfx" />
     <None Include="Library_projectDataSet.xsc">
       <DependentUpon>Library_projectDataSet.xsd</DependentUpon>
@@ -296,11 +298,6 @@
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.SqlServer.SqlLocalDB.15.0">
-      <Visible>False</Visible>
-      <ProductName>SQL Server 2019 Express LocalDB</ProductName>
-      <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
